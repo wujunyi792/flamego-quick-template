@@ -1,5 +1,15 @@
 # Gin-Template
 
+## What in it
+- gin
+- gorm and mysql
+- cors
+- tencent cms
+- oss
+- mail
+- log
+- docker
+
 ## How to use
 - [ ] Globally replace the package name with your own repository
 - [ ] Edit config/vars GlobalConfig. **It is recommended to make changes on the existing basis. Try not to change the existing structure, if you change, you need to change part of the code synchronously**
