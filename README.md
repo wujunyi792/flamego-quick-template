@@ -7,6 +7,7 @@
 - tencent cms
 - oss
 - mail
+- viper
 - log
 - docker
 
