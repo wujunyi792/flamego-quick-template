@@ -5,7 +5,11 @@ type GlobalConfig struct {
 	ProgramName string
 	AUTHOR      string
 	VERSION     string
-	SQL         struct {
+	Auth        struct {
+		Secret string
+		Issuer string
+	}
+	SQL struct {
 		Use    bool
 		Config struct {
 			TYPE     string

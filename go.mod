@@ -4,11 +4,13 @@ go 1.17
 
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.0+incompatible
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/pelletier/go-toml v1.9.4
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/robfig/cron v1.2.0
 	github.com/satori/go.uuid v1.2.0
+	github.com/sony/sonyflake v1.0.0
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.320
 	github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms v1.0.320
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
@@ -34,6 +36,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
