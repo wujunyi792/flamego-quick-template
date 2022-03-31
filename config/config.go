@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
-	"github.com/wujunyi792/gin-template-new/internal/logger"
 	"io/ioutil"
 	"os"
 )
@@ -17,7 +16,7 @@ var configSuffix = ".json"
 var serveConfig *GlobalConfig
 
 func init() {
-	logger.Info.Println("start init conf")
+	fmt.Println("start init conf")
 	if !exist(configPath + configName + configSuffix) {
 		data, err := json.Marshal(&GlobalConfig{
 			MODE: "debug",
@@ -45,11 +44,11 @@ func init() {
 	Fresh()
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
-		logger.Info.Println("Config file changed: ", e.Name)
+		fmt.Println("Config file changed: ", e.Name)
 		_ = viper.ReadInConfig()
 		err = viper.Unmarshal(serveConfig)
 		if err != nil {
-			logger.Warning.Println("New Config file Parse Failed: ", e.Name)
+			fmt.Println("New Config file Parse Failed: ", e.Name)
 			return
 		}
 	})

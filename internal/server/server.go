@@ -9,7 +9,6 @@ import (
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
 	"github.com/wujunyi792/gin-template-new/internal/redis"
 	v1 "github.com/wujunyi792/gin-template-new/internal/router/v1"
-	_ "github.com/wujunyi792/gin-template-new/internal/service"
 )
 
 var E *gin.Engine

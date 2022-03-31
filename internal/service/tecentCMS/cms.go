@@ -1,4 +1,4 @@
-package service
+package tecentCMS
 
 import (
 	"encoding/json"

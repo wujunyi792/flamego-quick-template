@@ -12,6 +12,7 @@
 - docker
 - snow Flake
 - jwt auth
+- random
 
 ## How to use
 - [ ] Globally replace the package name with your own repository

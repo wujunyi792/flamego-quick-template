@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/wujunyi792/gin-template-new/internal/response/dto"
-	"github.com/wujunyi792/gin-template-new/internal/service"
+	"github.com/wujunyi792/gin-template-new/internal/service/jwtTokenGen"
 	"net/http"
 )
 
@@ -12,10 +12,10 @@ func JwtVerify(c *gin.Context) {
 	var res dto.JsonResponse
 	token := c.GetHeader("Authorization")
 	if token != "" {
-		entry, err := service.ParseToken(token)
+		entry, err := jwtTokenGen.ParseToken(token)
 		if err == nil {
 			c.Set("token", token)
-			c.Set("id", entry.ID)
+			c.Set("id", entry.Info)
 			c.Next()
 			return
 		} else {

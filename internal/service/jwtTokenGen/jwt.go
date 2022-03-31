@@ -1,15 +1,14 @@
-package service
+package jwtTokenGen
 
 import (
 	"errors"
 	"github.com/golang-jwt/jwt"
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/model/Mysql"
 	"time"
 )
 
 type JWTClaims struct {
-	ID uint
+	Info interface{}
 	jwt.StandardClaims
 }
 
@@ -18,9 +17,9 @@ const TokenExpireDuration = time.Hour * 12
 var MySecret = []byte(config.GetConfig().Auth.Secret)
 
 // GenToken 生成JWT
-func GenToken(user Mysql.Example) (string, error) {
+func GenToken(info interface{}) (string, error) {
 	c := JWTClaims{
-		ID: user.ID,
+		Info: info,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(TokenExpireDuration).Unix(),
 			Issuer:    config.GetConfig().Auth.Issuer,

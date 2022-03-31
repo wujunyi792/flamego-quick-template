@@ -1,4 +1,4 @@
-package service
+package mail
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ var mailConfig struct {
 
 func init() {
 	if !config.GetConfig().Mail.Use {
-		panic("Mail not open, please check config")
+		panic("mail not open, please check config")
 	}
 
 	conf := &config.GetConfig().Mail.Config
