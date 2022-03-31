@@ -22,5 +22,6 @@ func MainRouter(e *gin.Engine) {
 	file := e.Group("/file")
 	{
 		file.GET("/ali/token", file2.HandleGetAliUploadToken)
+		file.POST("/ali/upload", file2.HandleAliUpLoad)
 	}
 }
