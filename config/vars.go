@@ -38,6 +38,8 @@ type GlobalConfig struct {
 			BucketName      string
 			BaseURL         string
 			Path            string
+			CallbackUrl     string
+			ExpireTime      int64
 		}
 	}
 	Mail struct {

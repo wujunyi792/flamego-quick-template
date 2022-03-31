@@ -1,4 +1,5 @@
 *.exe
 *.log
 .idea
+*test.go
 config/config.json
