@@ -39,7 +39,7 @@ func SendCMS(phone string, parameters []string) bool {
 	request.SmsSdkAppId = common.StringPtr(conf.AppId)
 
 	/* 短信签名内容: 使用 UTF-8 编码，必须填写已审核通过的签名，签名信息可登录 [短信控制台] 查看 */
-	request.SignName = common.StringPtr("")
+	request.SignName = common.StringPtr(conf.Sign)
 
 	/* 国际/港澳台短信 SenderId: 国内短信填空，默认未开通，如需开通请联系 [sms helper] */
 	request.SenderId = common.StringPtr("")
