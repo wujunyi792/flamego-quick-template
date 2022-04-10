@@ -1,4 +1,4 @@
-package utils
+package cmscode
 
 import (
 	"fmt"

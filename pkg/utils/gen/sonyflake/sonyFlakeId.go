@@ -1,4 +1,4 @@
-package utils
+package sonyflake
 
 import (
 	"github.com/sony/sonyflake"
