@@ -10,8 +10,7 @@ import (
 	"time"
 )
 
-type MySQLCreator struct {
-}
+type MySQLCreator struct{}
 
 func (m MySQLCreator) Create(ip string, port string, userName string, password string, dbName string) (*gorm.DB, error) {
 	newLogger := logger2.New(

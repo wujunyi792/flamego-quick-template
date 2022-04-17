@@ -8,11 +8,12 @@
 - oss
 - mail
 - viper
-- log
+- log(distinct debug)
 - docker
 - snow Flake
 - jwt auth
 - random
+- websocket
 
 ## How to use
 - [ ] Globally replace the package name with your own repository

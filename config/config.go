@@ -25,7 +25,7 @@ func init() {
 		err = json.Indent(&str, data, "", "  ")
 		err = ioutil.WriteFile(configPath+configName+configSuffix, str.Bytes(), 0644)
 		if err != nil {
-			panic("Try to generate config.json file failed!")
+			panic("Try to generate config.json fileHandle failed!")
 		}
 		fmt.Println("config.json generate success")
 		os.Exit(0)
@@ -44,11 +44,11 @@ func init() {
 	Fresh()
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Println("Config file changed: ", e.Name)
+		fmt.Println("Config fileHandle changed: ", e.Name)
 		_ = viper.ReadInConfig()
 		err = viper.Unmarshal(serveConfig)
 		if err != nil {
-			fmt.Println("New Config file Parse Failed: ", e.Name)
+			fmt.Println("New Config fileHandle Parse Failed: ", e.Name)
 			return
 		}
 	})

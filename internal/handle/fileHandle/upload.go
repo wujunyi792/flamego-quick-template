@@ -1,4 +1,4 @@
-package file
+package fileHandle
 
 import (
 	"github.com/gin-gonic/gin"
