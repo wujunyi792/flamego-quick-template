@@ -2,9 +2,9 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/wujunyi792/gin-template-new/internal/handle/fileHandle"
-	"github.com/wujunyi792/gin-template-new/internal/handle/websocketHandle"
 	"github.com/wujunyi792/gin-template-new/internal/response/dto"
+	"github.com/wujunyi792/gin-template-new/internal/router/v1/fileRouter"
+	"github.com/wujunyi792/gin-template-new/internal/router/v1/websocketRouter"
 )
 
 func MainRouter(e *gin.Engine) {
@@ -20,13 +20,6 @@ func MainRouter(e *gin.Engine) {
 		}
 		c.JSON(res.Code/100, res)
 	})
-	file := e.Group("/fileHandle")
-	{
-		file.GET("/ali/token", fileHandle.HandleGetAliUploadToken)
-		file.POST("/ali/upload", fileHandle.HandleAliUpLoad)
-	}
-	websocket := e.Group("/websocket")
-	{
-		websocket.GET("/connect", websocketHandle.HandleConnectWebSocket)
-	}
+	fileRouter.InitFileRouter(e)
+	websocketRouter.InitWebSocketRouter(e)
 }
