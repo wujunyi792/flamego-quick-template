@@ -7,8 +7,13 @@ import (
 	"time"
 )
 
+type Info struct {
+	UID          string
+	InfoComplete bool
+}
+
 type JWTClaims struct {
-	Info interface{}
+	Info Info
 	jwt.StandardClaims
 }
 
@@ -17,7 +22,7 @@ const TokenExpireDuration = time.Hour * 12
 var MySecret = []byte(config.GetConfig().Auth.Secret)
 
 // GenToken 生成JWT
-func GenToken(info interface{}) (string, error) {
+func GenToken(info Info) (string, error) {
 	c := JWTClaims{
 		Info: info,
 		StandardClaims: jwt.StandardClaims{
