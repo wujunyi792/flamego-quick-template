@@ -19,8 +19,6 @@ type JWTClaims struct {
 
 const TokenExpireDuration = time.Hour * 12
 
-var MySecret = []byte(config.GetConfig().Auth.Secret)
-
 // GenToken 生成JWT
 func GenToken(info Info) (string, error) {
 	c := JWTClaims{
@@ -31,13 +29,13 @@ func GenToken(info Info) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-	return token.SignedString(MySecret)
+	return token.SignedString(config.GetConfig().Auth.Secret)
 }
 
 // ParseToken 解析JWT
 func ParseToken(tokenString string) (*JWTClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &JWTClaims{}, func(token *jwt.Token) (i interface{}, err error) {
-		return MySecret, nil
+		return config.GetConfig().Auth.Secret, nil
 	})
 	if err != nil {
 		return nil, err

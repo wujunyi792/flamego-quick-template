@@ -1,64 +1,65 @@
 package config
 
 type GlobalConfig struct {
-	MODE        string
-	ProgramName string
-	AUTHOR      string
-	VERSION     string
+	MODE        string `yaml:"Mode"`
+	ProgramName string `yaml:"ProgramName"`
+	AUTHOR      string `yaml:"Author"`
+	VERSION     string `yaml:"Version"`
+	Port        string `yaml:"Port"`
 	Auth        struct {
-		Secret string
-		Issuer string
-	}
+		Secret string `yaml:"Secret"`
+		Issuer string `yaml:"Issuer"`
+	} `yaml:"Auth"`
 	SQL struct {
-		Use    bool
+		Use    bool `yaml:"Use"`
 		Config struct {
-			TYPE     string
-			IP       string
-			PORT     string
-			USER     string
-			PASSWORD string
-			DATABASE string
-		}
-	}
+			TYPE     string `yaml:"Type"`
+			IP       string `yaml:"Ip"`
+			PORT     string `yaml:"Port"`
+			USER     string `yaml:"User"`
+			PASSWORD string `yaml:"Password"`
+			DATABASE string `yaml:"Database"`
+		} `yaml:"Config"`
+	} `yaml:"Sql"`
 	REDIS struct {
-		Use    bool
+		Use    bool `yaml:"Use"`
 		Config struct {
-			IP       string
-			PORT     string
-			PASSWORD string
-			DB       int
-		}
-	}
+			IP       string `yaml:"Ip"`
+			PORT     string `yaml:"Port"`
+			PASSWORD string `yaml:"Password"`
+			DB       int    `yaml:"Db"`
+		} `yaml:"Config"`
+	} `yaml:"Redis"`
 	OSS struct {
-		Use    bool
+		Use    bool `yaml:"Use"`
 		Config struct {
-			AccessKeySecret string
-			AccessKeyId     string
-			EndPoint        string
-			BucketName      string
-			BaseURL         string
-			Path            string
-			CallbackUrl     string
-			ExpireTime      int64
-		}
-	}
+			AccessKeySecret string `yaml:"AccessKeySecret"`
+			AccessKeyId     string `yaml:"AccessKeyId"`
+			EndPoint        string `yaml:"EndPoint"`
+			BucketName      string `yaml:"BucketName"`
+			BaseURL         string `yaml:"BaseURL"`
+			Path            string `yaml:"Path"`
+			CallbackUrl     string `yaml:"CallbackUrl"`
+			ExpireTime      int64  `yaml:"ExpireTime"`
+		} `yaml:"Config"`
+	} `yaml:"Oss"`
 	Mail struct {
-		Use    bool
+		Use    bool `yaml:"Use"`
 		Config struct {
-			SMTP     string
-			PORT     int
-			ACCOUNT  string
-			PASSWORD string
-		}
-	}
+			SMTP     string `yaml:"Smtp"`
+			PORT     int    `yaml:"Port"`
+			ACCOUNT  string `yaml:"Account"`
+			PASSWORD string `yaml:"Password"`
+		} `yaml:"Config"`
+	} `yaml:"Mail"`
 	CMS struct {
-		Use    bool
+		Use    bool `yaml:"Use"`
 		Config struct {
-			SecretId   string
-			SecretKey  string
-			AppId      string
-			TemplateId string
-			Sign       string
-		}
-	}
+			SecretId   string `yaml:"SecretId"`
+			SecretKey  string `yaml:"SecretKey"`
+			AppId      string `yaml:"AppId"`
+			TemplateId string `yaml:"TemplateId"`
+			Sign       string `yaml:"Sign"`
+		} `yaml:"Config"`
+	} `yaml:"Cms"`
 }

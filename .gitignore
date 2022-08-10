@@ -2,4 +2,4 @@
 *.log
 .idea
 *test.go
-config/config.json
+config/config.yaml
