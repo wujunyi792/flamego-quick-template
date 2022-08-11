@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/logger"
+	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"gorm.io/gorm"
 )
 
@@ -20,12 +20,12 @@ func MustCreateGorm() *MainGORM {
 	conf := config.GetConfig()
 	var creator = GetCreatorByType(conf.SQL.Config.TYPE)
 	if creator == nil {
-		logger.Error.Fatalf("fail to find creator for type:%s", conf.SQL.Config.TYPE)
+		loging.Error.Fatalf("fail to find creator for type:%s", conf.SQL.Config.TYPE)
 		return nil
 	}
 	db, err := creator.Create(conf.SQL.Config.IP, conf.SQL.Config.PORT, conf.SQL.Config.USER, conf.SQL.Config.PASSWORD, conf.SQL.Config.DATABASE)
 	if err != nil {
-		logger.Error.Fatalln(err)
+		loging.Error.Fatalln(err)
 		return nil
 	}
 

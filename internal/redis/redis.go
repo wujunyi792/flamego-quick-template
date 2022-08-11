@@ -3,7 +3,7 @@ package redis
 import (
 	"fmt"
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/logger"
+	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"time"
 
 	"github.com/go-redis/redis"
@@ -34,10 +34,10 @@ func initFromConfig() {
 	}
 	_, err := client.Ping().Result()
 	if err != nil {
-		logger.Error.Fatalln(err)
+		loging.Error.Fatalln(err)
 		return
 	}
-	logger.Info.Printf("redis init finish")
+	loging.Info.Printf("redis init finish")
 }
 
 func GetRedis() *MainRedis {
@@ -50,16 +50,16 @@ func GetRedis() *MainRedis {
 // Get emapty result throw error
 func (r *MainRedis) Get(key string) (string, error) {
 	if r.pClient == nil {
-		logger.Error.Fatalln("pClient cannot be nil")
+		loging.Error.Fatalln("pClient cannot be nil")
 	}
 	return r.pClient.Get(key).Result()
 }
 
 func (r *MainRedis) GetInt(key string) (int, error) {
 	if r.pClient == nil {
-		logger.Error.Fatalln("pClient cannot be nil")
+		loging.Error.Fatalln("pClient cannot be nil")
 	}
-	logger.Info.Printf("get val of key:%s", key)
+	loging.Info.Printf("get val of key:%s", key)
 	return r.pClient.Get(key).Int()
 }
 
@@ -76,7 +76,7 @@ func (r *MainRedis) GetIntOrDefault(key string, def int) (int, error) {
 
 func (r *MainRedis) Set(key string, value interface{}, expireDuration time.Duration) error {
 	if r.pClient == nil {
-		logger.Error.Fatalln("pClient is nil")
+		loging.Error.Fatalln("pClient is nil")
 	}
 	return r.pClient.Set(key, value, expireDuration).Err()
 }

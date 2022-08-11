@@ -5,7 +5,9 @@ type GlobalConfig struct {
 	ProgramName string `yaml:"ProgramName"`
 	AUTHOR      string `yaml:"Author"`
 	VERSION     string `yaml:"Version"`
+	Host        string `yaml:"Host"`
 	Port        string `yaml:"Port"`
+	LogPath     string `yaml:"LogPath"`
 	Auth        struct {
 		Secret string `yaml:"Secret"`
 		Issuer string `yaml:"Issuer"`

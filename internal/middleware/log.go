@@ -3,7 +3,7 @@ package middleware
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/wujunyi792/gin-template-new/internal/logger"
+	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"time"
 )
 
@@ -33,7 +33,7 @@ func GinRequestLog(c *gin.Context) {
 	clientIP := c.ClientIP()
 
 	// 日志格式
-	logger.Info.Println(fmt.Sprintf(
+	loging.Info.Println(fmt.Sprintf(
 		"| %3d | %13v | %15s | %s | %s |",
 		statusCode, latencyTime, clientIP, reqMethod, reqUri),
 	)

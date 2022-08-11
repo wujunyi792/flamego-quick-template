@@ -8,7 +8,7 @@ import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111" // 引入sms
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/logger"
+	"github.com/wujunyi792/gin-template-new/internal/loging"
 )
 
 func init() {
@@ -60,17 +60,17 @@ func SendCMS(phone string, parameters []string) bool {
 	response, err := client.SendSms(request)
 	// 处理异常
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
-		logger.Error.Println(fmt.Sprintf("An API error has returned: %s", err))
+		loging.Error.Println(fmt.Sprintf("An API error has returned: %s", err))
 		return false
 	}
 	// 非SDK异常，直接失败。实际代码中可以加入其他的处理。
 	if err != nil {
-		logger.Error.Println(fmt.Sprintf("An SDK error has returned: %s", err))
+		loging.Error.Println(fmt.Sprintf("An SDK error has returned: %s", err))
 		return false
 	}
 	b, _ := json.Marshal(response.Response)
 	// 打印返回的json字符串
-	logger.Info.Println(fmt.Sprintf("%s", b))
+	loging.Info.Println(fmt.Sprintf("%s", b))
 	if *response.Response.SendStatusSet[0].Code != "Ok" {
 		return false
 	}

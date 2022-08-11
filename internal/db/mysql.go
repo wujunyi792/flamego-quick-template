@@ -24,7 +24,6 @@ func (m MySQLCreator) Create(ip string, port string, userName string, password s
 	)
 	var dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		userName, password, ip, port, dbName)
-	//logger.Info.Printf("conn str: %s", dsn)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: newLogger,
 	})

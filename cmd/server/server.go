@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"github.com/wujunyi792/gin-template-new/config"
+	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
 	v1 "github.com/wujunyi792/gin-template-new/internal/router/v1"
 	"github.com/wujunyi792/gin-template-new/pkg/colorful"
@@ -46,6 +47,7 @@ func init() {
 
 func setUp() {
 	config.LoadConfig(configYml)
+	loging.InitLogger()
 }
 
 func load() {
@@ -59,7 +61,7 @@ func load() {
 
 func run() {
 	srv := &http.Server{
-		Addr:    "0.0.0.0:" + config.GetConfig().Port,
+		Addr:    config.GetConfig().Host + ":" + config.GetConfig().Port,
 		Handler: E,
 	}
 
