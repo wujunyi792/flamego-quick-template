@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"github.com/wujunyi792/gin-template-new/config"
+	"github.com/wujunyi792/gin-template-new/internal/database"
 	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
 	v1 "github.com/wujunyi792/gin-template-new/internal/router/v1"
@@ -48,6 +49,7 @@ func init() {
 func setUp() {
 	config.LoadConfig(configYml)
 	loging.InitLogger()
+	database.InitDB()
 }
 
 func load() {

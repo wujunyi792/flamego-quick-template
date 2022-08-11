@@ -1,7 +1,7 @@
 package example
 
 import (
-	"github.com/wujunyi792/gin-template-new/internal/db"
+	"github.com/wujunyi792/gin-template-new/internal/database"
 	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"github.com/wujunyi792/gin-template-new/internal/model/Mysql"
 	"gorm.io/gorm"
@@ -14,14 +14,14 @@ func init() {
 }
 
 type DBManage struct {
-	mDB     *db.MainGORM
+	mDB     *gorm.DB
 	sDBLock sync.RWMutex
 }
 
 var dbManage *DBManage = nil
 
 func (manager *DBManage) getGOrmDB() *gorm.DB {
-	return manager.mDB.GetDB()
+	return manager.mDB
 }
 
 func (manager *DBManage) atomicDBOperation(op func()) {
@@ -32,8 +32,8 @@ func (manager *DBManage) atomicDBOperation(op func()) {
 
 func GetManage() *DBManage {
 	if dbManage == nil {
-		var userDb = db.MustCreateGorm()
-		err := userDb.GetDB().AutoMigrate(&Mysql.Example{})
+		var userDb = database.GetDb("*")
+		err := userDb.AutoMigrate(&Mysql.Example{})
 		if err != nil {
 			loging.Error.Fatalln(err)
 			return nil

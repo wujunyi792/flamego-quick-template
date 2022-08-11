@@ -22,10 +22,12 @@ func GetExt(fileName string) string {
 }
 
 // FileExist 检查文件是否存在
-func FileExist(src string) bool {
-	_, err := os.Stat(src)
-
-	return os.IsNotExist(err)
+func FileExist(path string) bool {
+	_, err := os.Stat(path)
+	if err != nil {
+		return os.IsExist(err)
+	}
+	return true
 }
 
 // CheckPermission 检查文件权限
