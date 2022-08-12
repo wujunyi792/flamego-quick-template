@@ -2,7 +2,7 @@ package websocket
 
 import (
 	"fmt"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"log"
 	"net/http"
 	"time"
@@ -91,13 +91,13 @@ func (c *socketClient) readPump() {
 		c.manager.unregister <- c
 		err := c.conn.Close()
 		if err != nil {
-			loging.Error.Println(err)
+			logx.Error.Println(err)
 		}
 	}()
 	for {
 		_, message, err := c.conn.ReadMessage()
 		if err != nil {
-			loging.Error.Println(fmt.Sprintf("error: %v", err))
+			logx.Error.Println(fmt.Sprintf("error: %v", err))
 			break
 		}
 		c.manager.receive <- map[*socketClient][]byte{
@@ -113,7 +113,7 @@ func (c *socketClient) writePump() {
 	defer func() {
 		err := c.conn.Close()
 		if err != nil {
-			loging.Error.Println(err)
+			logx.Error.Println(err)
 		}
 	}()
 	for {

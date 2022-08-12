@@ -1,4 +1,4 @@
-package loging
+package logx
 
 import (
 	"github.com/wujunyi792/gin-template-new/config"

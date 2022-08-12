@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/go-redis/redis"
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/cache/typeCache"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/cache/types"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"time"
 )
 
 type RedisCreator struct{}
 
-func (c RedisCreator) Create(conf config.Cache) (typeCache.Cache, error) {
+func (c RedisCreator) Create(conf config.Cache) (types.Cache, error) {
 	var r RedisCache
 	r.client = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("%s:%s", conf.IP, conf.PORT),
@@ -20,7 +20,7 @@ func (c RedisCreator) Create(conf config.Cache) (typeCache.Cache, error) {
 	})
 	_, err := r.client.Ping().Result()
 	if err != nil {
-		loging.Error.Fatalln(err)
+		logx.Error.Fatalln(err)
 	}
 	return r, nil
 }
@@ -35,7 +35,7 @@ func (r RedisCache) GetInt(key string) (int, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	return 0, false
 }
@@ -46,7 +46,7 @@ func (r RedisCache) GetInt64(key string) (int64, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	return 0, false
 }
@@ -57,7 +57,7 @@ func (r RedisCache) GetFloat32(key string) (float32, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	return 0, false
 }
@@ -68,7 +68,7 @@ func (r RedisCache) GetFloat64(key string) (float64, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	return 0, false
 }
@@ -79,7 +79,7 @@ func (r RedisCache) GetString(key string) (string, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	return "", false
 }
@@ -87,7 +87,7 @@ func (r RedisCache) GetString(key string) (string, bool) {
 func (r RedisCache) GetBool(key string) (bool, bool) {
 	value, err := r.client.Get(key).Result()
 	if err != redis.Nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	if value == "1" {
 		return true, true
@@ -106,7 +106,7 @@ func (r RedisCache) Del(key string) bool {
 	if err == redis.Nil {
 		return false
 	} else if err != nil {
-		loging.Error.Println(err)
+		logx.Error.Println(err)
 	}
 	return true
 }

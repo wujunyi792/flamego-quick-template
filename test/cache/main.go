@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"github.com/wujunyi792/gin-template-new/config"
 	"github.com/wujunyi792/gin-template-new/internal/cache"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 )
 
 func main() {
 	config.LoadConfig("config/config.yaml")
-	loging.InitLogger()
+	logx.InitLogger()
 	cache.InitCache()
 	//for i := 'A'; i < 'z'; i++ {
 	//	cache.GetCache("*").Set(string(i), string(i), 2*time.Second)

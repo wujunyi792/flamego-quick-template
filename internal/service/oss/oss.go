@@ -8,7 +8,7 @@ import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	uuid "github.com/satori/go.uuid"
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"hash"
 	"io"
 	"path"
@@ -20,7 +20,7 @@ func init() {
 		panic("OSS not open, please check config")
 	}
 	InitOSS()
-	loging.Info.Println("OSS init SUCCESS ")
+	logx.Info.Println("OSS init SUCCESS ")
 }
 
 var client *oss.Client
@@ -33,11 +33,11 @@ func InitOSS() {
 	client, err = oss.New(conf.EndPoint, conf.AccessKeyId, conf.AccessKeySecret)
 	// 获取存储空间。
 	if err != nil {
-		loging.Error.Fatalln(err)
+		logx.Error.Fatalln(err)
 	}
 	bucket, err = client.Bucket(conf.BucketName)
 	if err != nil {
-		loging.Error.Fatalln("阿里云OSS连接失败: ", err)
+		logx.Error.Fatalln("阿里云OSS连接失败: ", err)
 	}
 }
 
@@ -47,7 +47,7 @@ func UploadFileToOss(filename string, fd io.Reader) string {
 	err := bucket.PutObject(conf.Path+fname, fd)
 	pictureUrl := conf.BaseURL + conf.Path + fname
 	if err != nil {
-		loging.Error.Println("File upload to OSS fail，fileName：", pictureUrl, ", err: :", err)
+		logx.Error.Println("File upload to OSS fail，fileName：", pictureUrl, ", err: :", err)
 		return ""
 	}
 	return pictureUrl
@@ -87,7 +87,7 @@ func GetPolicyToken() interface{} {
 	callbackParam.CallbackBodyType = "application/x-www-form-urlencoded"
 	callbackStr, err := json.Marshal(callbackParam)
 	if err != nil {
-		loging.Error.Println("callback json err:", err)
+		logx.Error.Println("callback json err:", err)
 	}
 	callbackBase64 := base64.StdEncoding.EncodeToString(callbackStr)
 

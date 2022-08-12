@@ -1,38 +1,59 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/wujunyi792/gin-template-new/internal/dto/common"
-	"github.com/wujunyi792/gin-template-new/internal/dto/err"
-	"net/http"
+	"encoding/json"
+	"github.com/flamego/flamego"
 )
 
-// Success 响应成功 ErrorCode 为 0 表示成功
-func Success(c *gin.Context, data interface{}, count ...int64) {
-	resp := common.JsonResponse{}
-	resp.Clear()
-	resp.Data = data
-	if len(count) > 0 {
-		resp.Count = count[0]
+type resp struct {
+	Code  int         `json:"code"`
+	Msg   string      `json:"msg"`
+	Count int         `json:"count,omitempty"`
+	Data  interface{} `json:"data,omitempty"`
+}
+
+func InjectRequest[T any]() flamego.Handler {
+	var req T
+	return func(r flamego.Render, c flamego.Context) {
+		body, err := c.Request().Body().Bytes()
+		if err = json.Unmarshal(body, &req); err != nil {
+			InValidParam(r)
+			return
+		}
+		c.Map(req)
 	}
-	c.JSON(http.StatusOK, resp)
 }
 
-// Fail 响应失败
-func Fail(c *gin.Context, serviceError err.ServiceError) {
-	resp := common.JsonResponse{}
-	resp.Clear()
-	resp.Code = serviceError.Code
-	resp.Message = serviceError.Error()
-	c.JSON(serviceError.Code/100, resp)
-	c.Abort()
+func http(r flamego.Render, code int, msg string, data interface{}, count ...int) {
+	co := 0
+	if len(count) > 0 {
+		co = count[0]
+	}
+	r.JSON(code/100, &resp{
+		Code:  code,
+		Msg:   msg,
+		Data:  data,
+		Count: co,
+	})
 }
 
-func FailWithCode(c *gin.Context, code int, msg string) {
-	resp := common.JsonResponse{}
-	resp.Clear()
-	resp.Message = msg
-	resp.Code = code
-	c.JSON(code/100, resp)
-	c.Abort()
+// HTTPSuccess 成功返回
+func HTTPSuccess(r flamego.Render, data interface{}, count ...int) {
+	http(r, 20000, "success", data, count...)
+}
+
+func HTTPFail(r flamego.Render, code int, msg string, count ...int) {
+	http(r, code, msg, nil, count...)
+}
+
+func UnAuthorization(r flamego.Render) {
+	HTTPFail(r, 40100, "unAuthorized")
+}
+
+func InValidParam(r flamego.Render) {
+	HTTPFail(r, 40200, "invalid params")
+}
+
+func ServiceErr(r flamego.Render) {
+	HTTPFail(r, 500, "service down")
 }

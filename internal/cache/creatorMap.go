@@ -3,11 +3,11 @@ package cache
 import (
 	"github.com/wujunyi792/gin-template-new/config"
 	"github.com/wujunyi792/gin-template-new/internal/cache/driver"
-	"github.com/wujunyi792/gin-template-new/internal/cache/typeCache"
+	"github.com/wujunyi792/gin-template-new/internal/cache/types"
 )
 
 type Creator interface {
-	Create(conf config.Cache) (typeCache.Cache, error)
+	Create(conf config.Cache) (types.Cache, error)
 }
 
 func init() {

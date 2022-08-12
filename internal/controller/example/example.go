@@ -2,14 +2,14 @@ package example
 
 import (
 	"github.com/wujunyi792/gin-template-new/internal/database"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
-	"github.com/wujunyi792/gin-template-new/internal/model/Mysql"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
+	"github.com/wujunyi792/gin-template-new/internal/models/databasesModel"
 	"gorm.io/gorm"
 	"sync"
 )
 
 func init() {
-	loging.Info.Println("start init Table ...")
+	logx.Info.Println("start init Table ...")
 	dbManage = GetManage()
 }
 
@@ -33,9 +33,9 @@ func (manager *DBManage) atomicDBOperation(op func()) {
 func GetManage() *DBManage {
 	if dbManage == nil {
 		var userDb = database.GetDb("*")
-		err := userDb.AutoMigrate(&Mysql.Example{})
+		err := userDb.AutoMigrate(&databasesModel.Example{})
 		if err != nil {
-			loging.Error.Fatalln(err)
+			logx.Error.Fatalln(err)
 			return nil
 		}
 		dbManage = &DBManage{mDB: userDb}

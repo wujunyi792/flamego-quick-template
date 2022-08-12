@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"gorm.io/gorm"
 	"sync"
 )
@@ -19,7 +19,7 @@ func InitDB() {
 		if source.Key == "" {
 			source.Key = "*"
 		}
-		loging.Info.Printf("create datasource %s => %s:%s", source.Key, source.IP, source.PORT)
+		logx.Info.Printf("create datasource %s => %s:%s", source.Key, source.IP, source.PORT)
 	}
 }
 
@@ -34,7 +34,7 @@ func setDbByKey(key string, db *gorm.DB) {
 		key = "*"
 	}
 	if GetDb(key) != nil {
-		loging.Error.Fatalln("duplicate db key: " + key)
+		logx.Error.Fatalln("duplicate db key: " + key)
 	}
 	mux.Lock()
 	defer mux.Unlock()
@@ -44,12 +44,12 @@ func setDbByKey(key string, db *gorm.DB) {
 func mustCreateGorm(database config.Datasource) *gorm.DB {
 	var creator = getCreatorByType(database.Type)
 	if creator == nil {
-		loging.Error.Fatalf("fail to find creator for typeCache:%s", database.Type)
+		logx.Error.Fatalf("fail to find creator for types:%s", database.Type)
 		return nil
 	}
 	db, err := creator.Create(database.IP, database.PORT, database.USER, database.PASSWORD, database.DATABASE)
 	if err != nil {
-		loging.Error.Fatalln(err)
+		logx.Error.Fatalln(err)
 		return nil
 	}
 

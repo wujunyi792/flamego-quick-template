@@ -1,4 +1,4 @@
-package Mysql
+package databasesModel
 
 import (
 	"gorm.io/gorm"

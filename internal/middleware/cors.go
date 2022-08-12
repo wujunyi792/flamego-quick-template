@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func Cors(c *gin.Engine) gin.HandlerFunc {
@@ -27,7 +26,7 @@ func Cors(c *gin.Engine) gin.HandlerFunc {
 
 		//允许类型校验
 		if method == "OPTIONS" {
-			c.AbortWithStatus(http.StatusNoContent)
+			c.AbortWithStatus(204)
 		}
 
 		c.Next()

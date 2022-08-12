@@ -4,14 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"github.com/flamego/cors"
+	"github.com/flamego/flamego"
 	"github.com/spf13/cobra"
 	"github.com/wujunyi792/gin-template-new/config"
+	example "github.com/wujunyi792/gin-template-new/internal/app/example/router"
+	file "github.com/wujunyi792/gin-template-new/internal/app/file/router"
 	"github.com/wujunyi792/gin-template-new/internal/cache"
 	"github.com/wujunyi792/gin-template-new/internal/database"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
-	v1 "github.com/wujunyi792/gin-template-new/internal/router/v1"
 	"github.com/wujunyi792/gin-template-new/pkg/colorful"
 	"github.com/wujunyi792/gin-template-new/pkg/ip"
 	"net/http"
@@ -23,7 +25,7 @@ import (
 
 var (
 	configYml string
-	E         *gin.Engine
+	E         *flamego.Flame
 	StartCmd  = &cobra.Command{
 		Use:     "server",
 		Short:   "Set Application config info",
@@ -50,17 +52,19 @@ func init() {
 func setUp() {
 	// 顺序不能变 logger依赖config logger后面的同时依赖logger和config 否则crash
 	config.LoadConfig(configYml)
-	loging.InitLogger()
+	logx.InitLogger()
 	database.InitDB()
 	cache.InitCache()
 }
 
 func load() {
-	gin.SetMode(config.GetConfig().MODE)
-	E = gin.New()
-	E.Use(middleware.GinRequestLog, gin.Recovery(), middleware.Cors(E))
+	flamego.SetEnv(flamego.EnvType(config.GetConfig().MODE))
+	E = flamego.New()
+	E.Use(flamego.Recovery(), middleware.RequestLog(), flamego.Renderer(), cors.CORS())
 
-	v1.MainRouter(E)
+	// TODO 新路由请在这注册
+	example.AppExampleInit(E)
+	file.AppFileInit(E)
 
 }
 

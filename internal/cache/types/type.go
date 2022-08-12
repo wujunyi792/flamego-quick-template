@@ -1,4 +1,4 @@
-package typeCache
+package types
 
 import "time"
 

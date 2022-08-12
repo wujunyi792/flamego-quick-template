@@ -1,26 +1,22 @@
-package jwtTokenGen
+package jwt
 
 import (
 	"errors"
 	"github.com/golang-jwt/jwt"
 	"github.com/wujunyi792/gin-template-new/config"
+	"github.com/wujunyi792/gin-template-new/internal/models/jwtModel"
 	"time"
 )
 
-type Info struct {
-	UID          string
-	InfoComplete bool
-}
-
 type JWTClaims struct {
-	Info Info
+	Info jwtModel.UserInfo
 	jwt.StandardClaims
 }
 
 const TokenExpireDuration = time.Hour * 12
 
 // GenToken 生成JWT
-func GenToken(info Info) (string, error) {
+func GenToken(info jwtModel.UserInfo) (string, error) {
 	c := JWTClaims{
 		Info: info,
 		StandardClaims: jwt.StandardClaims{

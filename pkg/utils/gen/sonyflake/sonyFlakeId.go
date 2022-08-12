@@ -2,7 +2,7 @@ package sonyflake
 
 import (
 	"github.com/sony/sonyflake"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 )
 
 var flake *sonyflake.Sonyflake
@@ -15,7 +15,7 @@ func GenSonyFlakeId() (int64, error) {
 
 	id, err := flake.NextID()
 	if err != nil {
-		loging.Warning.Println("flake NextID failed: ", err)
+		logx.Warning.Println("flake NextID failed: ", err)
 		return 0, err
 	}
 

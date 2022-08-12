@@ -1,40 +1,38 @@
 package middleware
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/wujunyi792/gin-template-new/internal/loging"
+	"github.com/flamego/flamego"
+	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"time"
 )
 
-func GinRequestLog(c *gin.Context) {
-	// 开始时间
-	startTime := time.Now()
+func RequestLog() flamego.Handler {
+	return func(c flamego.Context) {
+		// 开始时间
+		startTime := time.Now()
 
-	// 处理请求
-	c.Next()
+		// 处理请求
+		c.Next()
 
-	// 结束时间
-	endTime := time.Now()
+		// 结束时间
+		endTime := time.Now()
 
-	// 执行时间
-	latencyTime := endTime.Sub(startTime)
+		// 执行时间
+		latencyTime := endTime.Sub(startTime)
 
-	// 请求方式
-	reqMethod := c.Request.Method
+		// 请求方式
+		reqMethod := c.Request().Method
 
-	// 请求路由
-	reqUri := c.Request.RequestURI
+		// 请求路由
+		reqUri := c.Request().RequestURI
 
-	// 状态码
-	statusCode := c.Writer.Status()
+		// 状态码
+		statusCode := c.ResponseWriter().Status()
 
-	// 请求IP
-	clientIP := c.ClientIP()
+		// 请求IP
+		clientIP := c.RemoteAddr()
 
-	// 日志格式
-	loging.Info.Println(fmt.Sprintf(
-		"| %3d | %13v | %15s | %s | %s |",
-		statusCode, latencyTime, clientIP, reqMethod, reqUri),
-	)
+		// 日志格式
+		logx.Info.Printf("| %3d | %13v | %15s | %s | %s |", statusCode, latencyTime, clientIP, reqMethod, reqUri)
+	}
 }
