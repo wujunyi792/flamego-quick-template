@@ -3,7 +3,7 @@ package cache
 import (
 	"github.com/wujunyi792/gin-template-new/config"
 	"github.com/wujunyi792/gin-template-new/internal/cache/types"
-	"github.com/wujunyi792/gin-template-new/internal/logx"
+	"github.com/wujunyi792/gin-template-new/pkg/logx"
 	"sync"
 )
 

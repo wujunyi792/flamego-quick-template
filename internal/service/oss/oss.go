@@ -8,20 +8,12 @@ import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	uuid "github.com/satori/go.uuid"
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/logx"
+	"github.com/wujunyi792/gin-template-new/pkg/logx"
 	"hash"
 	"io"
 	"path"
 	"time"
 )
-
-func init() {
-	if !config.GetConfig().OSS.Use {
-		panic("OSS not open, please check config")
-	}
-	InitOSS()
-	logx.Info.Println("OSS init SUCCESS ")
-}
 
 var client *oss.Client
 var bucket *oss.Bucket

@@ -3,7 +3,7 @@ package mail
 import (
 	"fmt"
 	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/logx"
+	"github.com/wujunyi792/gin-template-new/pkg/logx"
 	"gopkg.in/gomail.v2"
 	"time"
 )

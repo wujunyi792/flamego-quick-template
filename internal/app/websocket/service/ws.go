@@ -1,8 +1,8 @@
-package websocket
+package service
 
 import (
 	"fmt"
-	"github.com/wujunyi792/gin-template-new/internal/logx"
+	"github.com/wujunyi792/gin-template-new/pkg/logx"
 	"log"
 	"net/http"
 	"time"
@@ -142,11 +142,6 @@ func (c *socketClient) writePump() {
 	}
 }
 
-/**
- * @description: 发送Socket信息
- * @param {string} name
- * @param {string} message
- */
 func SendClientSocket(name string, message string) {
 	for k := range manager.clients {
 		if k.name == name {

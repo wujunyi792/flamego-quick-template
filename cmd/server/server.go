@@ -10,12 +10,13 @@ import (
 	"github.com/wujunyi792/gin-template-new/config"
 	example "github.com/wujunyi792/gin-template-new/internal/app/example/router"
 	file "github.com/wujunyi792/gin-template-new/internal/app/file/router"
+	ws "github.com/wujunyi792/gin-template-new/internal/app/websocket/router"
 	"github.com/wujunyi792/gin-template-new/internal/cache"
 	"github.com/wujunyi792/gin-template-new/internal/database"
-	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
 	"github.com/wujunyi792/gin-template-new/pkg/colorful"
 	"github.com/wujunyi792/gin-template-new/pkg/ip"
+	"github.com/wujunyi792/gin-template-new/pkg/logx"
 	"net/http"
 	"os"
 	"os/signal"
@@ -65,7 +66,7 @@ func load() {
 	// TODO 新路由请在这注册
 	example.AppExampleInit(E)
 	file.AppFileInit(E)
-
+	ws.AppWebsocketInit(E)
 }
 
 func run() {

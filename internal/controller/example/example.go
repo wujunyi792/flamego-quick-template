@@ -2,8 +2,8 @@ package example
 
 import (
 	"github.com/wujunyi792/gin-template-new/internal/database"
-	"github.com/wujunyi792/gin-template-new/internal/logx"
 	"github.com/wujunyi792/gin-template-new/internal/models/databasesModel"
+	"github.com/wujunyi792/gin-template-new/pkg/logx"
 	"gorm.io/gorm"
 	"sync"
 )
