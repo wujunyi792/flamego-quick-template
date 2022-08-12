@@ -13,16 +13,8 @@ type GlobalConfig struct {
 		Issuer string `yaml:"Issuer"`
 	} `yaml:"Auth"`
 	Databases []Datasource `yaml:"Databases"`
-	REDIS     struct {
-		Use    bool `yaml:"Use"`
-		Config struct {
-			IP       string `yaml:"Ip"`
-			PORT     string `yaml:"Port"`
-			PASSWORD string `yaml:"Password"`
-			DB       int    `yaml:"Db"`
-		} `yaml:"Config"`
-	} `yaml:"Redis"`
-	OSS struct {
+	Caches    []Cache      `yaml:"Caches"`
+	OSS       struct {
 		Use    bool `yaml:"Use"`
 		Config struct {
 			AccessKeySecret string `yaml:"AccessKeySecret"`
@@ -64,4 +56,13 @@ type Datasource struct {
 	USER     string `yaml:"User"`
 	PASSWORD string `yaml:"Password"`
 	DATABASE string `yaml:"Database"`
+}
+
+type Cache struct {
+	Key      string `yaml:"Key"`
+	Type     string `yaml:"Type"`
+	IP       string `yaml:"Ip"`
+	PORT     string `yaml:"Port"`
+	PASSWORD string `yaml:"Password"`
+	DB       int    `yaml:"Db"`
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"github.com/wujunyi792/gin-template-new/config"
+	"github.com/wujunyi792/gin-template-new/internal/cache"
 	"github.com/wujunyi792/gin-template-new/internal/database"
 	"github.com/wujunyi792/gin-template-new/internal/loging"
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
@@ -47,9 +48,11 @@ func init() {
 }
 
 func setUp() {
+	// 顺序不能变 logger依赖config logger后面的同时依赖logger和config 否则crash
 	config.LoadConfig(configYml)
 	loging.InitLogger()
 	database.InitDB()
+	cache.InitCache()
 }
 
 func load() {

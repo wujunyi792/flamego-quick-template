@@ -44,7 +44,7 @@ func setDbByKey(key string, db *gorm.DB) {
 func mustCreateGorm(database config.Datasource) *gorm.DB {
 	var creator = getCreatorByType(database.Type)
 	if creator == nil {
-		loging.Error.Fatalf("fail to find creator for type:%s", database.Type)
+		loging.Error.Fatalf("fail to find creator for typeCache:%s", database.Type)
 		return nil
 	}
 	db, err := creator.Create(database.IP, database.PORT, database.USER, database.PASSWORD, database.DATABASE)
