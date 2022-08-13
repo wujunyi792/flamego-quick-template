@@ -1,4 +1,4 @@
-package service
+package websocket
 
 import (
 	"fmt"
@@ -10,13 +10,13 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var manager *socketManager
+var managers = make(map[string]*SocketManager)
 
 const (
 	writeWait = 10 * time.Second
 )
 
-var upgrader = websocket.Upgrader{
+var upGrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
 	// 跨域
@@ -25,7 +25,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-type socketManager struct {
+type SocketManager struct {
 	clients    map[*socketClient]bool
 	register   chan *socketClient
 	unregister chan *socketClient
@@ -33,11 +33,18 @@ type socketManager struct {
 	broadcast  chan []byte
 }
 
+type socketClient struct {
+	name    string
+	manager *SocketManager
+	conn    *websocket.Conn
+	send    chan []byte
+}
+
 /**
  * @description: 创建Socket管理器
  */
-func newManager() *socketManager {
-	return &socketManager{
+func newManager() *SocketManager {
+	return &SocketManager{
 		clients:    make(map[*socketClient]bool),
 		register:   make(chan *socketClient),
 		unregister: make(chan *socketClient),
@@ -49,7 +56,7 @@ func newManager() *socketManager {
 /**
  * @description: 接收Socket连接
  */
-func (m *socketManager) run() {
+func (m *SocketManager) run() {
 	for {
 		select {
 		// 连接加入
@@ -74,13 +81,6 @@ func (m *socketManager) run() {
 			}
 		}
 	}
-}
-
-type socketClient struct {
-	name    string
-	manager *socketManager
-	conn    *websocket.Conn
-	send    chan []byte
 }
 
 /**
@@ -142,31 +142,46 @@ func (c *socketClient) writePump() {
 	}
 }
 
-func SendClientSocket(name string, message string) {
-	for k := range manager.clients {
+func (m *SocketManager) SendClientSocket(name string, message string) {
+	for k := range m.clients {
 		if k.name == name {
 			k.send <- []byte(message)
 		}
 	}
 }
 
-func SendAllSocket(message string) {
-	manager.broadcast <- []byte(message)
+func (m *SocketManager) SendAllSocket(message string) {
+	m.broadcast <- []byte(message)
 }
 
-func SocketServer(w http.ResponseWriter, r *http.Request, n string) {
-	conn, err := upgrader.Upgrade(w, r, nil)
+func (m *SocketManager) ServeSocket(w http.ResponseWriter, r *http.Request, n string) {
+	conn, err := upGrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	client := &socketClient{name: n, manager: manager, conn: conn, send: make(chan []byte, 256)}
+	client := &socketClient{name: n, manager: m, conn: conn, send: make(chan []byte, 256)}
 	client.manager.register <- client
 	go client.writePump()
 	go client.readPump()
 }
 
-func SocketInit() {
-	manager = newManager()
-	go manager.run()
+func InitSocketManager(key string) {
+	if key == "" {
+		key = "*"
+	}
+	if _, ok := managers[key]; ok {
+		logx.Error.Fatalln("socket manager key duplication")
+	}
+	m := newManager()
+	go m.run()
+	managers[key] = m
+}
+
+func GetSocketManager(key string) *SocketManager {
+	if m, ok := managers[key]; ok {
+		return m
+	}
+	logx.Error.Println("socket client ", key, " not found")
+	return nil
 }

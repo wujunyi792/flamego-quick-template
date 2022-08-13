@@ -5,11 +5,18 @@ import (
 	"github.com/wujunyi792/gin-template-new/internal/cache"
 	"github.com/wujunyi792/gin-template-new/internal/database"
 	"github.com/wujunyi792/gin-template-new/internal/models/jwtModel"
+	"github.com/wujunyi792/gin-template-new/internal/websocket"
 )
 
 func InjectDB(key string) flamego.Handler {
 	return func(c flamego.Context) {
 		c.Map(database.GetDb(key))
+	}
+}
+
+func InjectWebsocket(key string) flamego.Handler {
+	return func(c flamego.Context) {
+		c.Map(websocket.GetSocketManager(key))
 	}
 }
 
