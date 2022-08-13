@@ -26,12 +26,12 @@ func init() {
 		conf.PASSWORD,
 	)
 
-	err := SendMail(conf.ACCOUNT, config.GetConfig().ProgramName+` Golang Program init`, fmt.Sprintf("Name: %s\nVERSION: %s\nAuthor: %s\nTime: %s", config.GetConfig().ProgramName, config.GetConfig().VERSION, config.GetConfig().AUTHOR, time.Now().Format("2006-01-02 15:04:05")))
+	err := SendMail(conf.ACCOUNT, config.GetConfig().ProgramName+` Golang Program routerInitialize`, fmt.Sprintf("Name: %s\nVERSION: %s\nAuthor: %s\nTime: %s", config.GetConfig().ProgramName, config.GetConfig().VERSION, config.GetConfig().AUTHOR, time.Now().Format("2006-01-02 15:04:05")))
 
 	if err != nil {
 		logx.Error.Fatalln(err)
 	}
-	logx.Info.Println("mail init SUCCESS ")
+	logx.Info.Println("mail routerInitialize SUCCESS ")
 }
 
 func SendMail(to, title, content string) error {

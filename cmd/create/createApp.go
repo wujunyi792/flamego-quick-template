@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"github.com/wujunyi792/gin-template-new/pkg/colorful"
 	"github.com/wujunyi792/gin-template-new/pkg/fs"
 	"os"
 	"path"
@@ -22,45 +23,49 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			err := load()
 			if err != nil {
-				println(err.Error())
+				println(colorful.Red(err.Error()))
 				os.Exit(1)
 			}
+			println(colorful.Green("App " + appName + " generate success under " + dir))
 		},
 	}
 )
 
 func init() {
-	StartCmd.PersistentFlags().StringVarP(&appName, "name", "n", "example", "create a new app with provided name")
+	StartCmd.PersistentFlags().StringVarP(&appName, "name", "n", "", "create a new app with provided name")
 	StartCmd.PersistentFlags().StringVarP(&dir, "path", "p", "internal/app", "new file will generate under provided path")
 	StartCmd.PersistentFlags().BoolVarP(&force, "force", "f", false, "Force generate the app")
 }
 
 func load() error {
 	if appName == "" {
-		return errors.New("app name should not be empty")
+		return errors.New("app name should not be empty, use -n")
 	}
 
 	router := path.Join(dir, appName, "router")
 	handle := path.Join(dir, appName, "handle")
 	dto := path.Join(dir, appName, "dto")
 	service := path.Join(dir, appName, "service")
+	trigger := path.Join(dir, "routerInitialize")
 
 	_ = fs.IsNotExistMkDir(router)
 	_ = fs.IsNotExistMkDir(handle)
 	_ = fs.IsNotExistMkDir(dto)
 	_ = fs.IsNotExistMkDir(service)
-
-	router += "/init.go"
-	handle += "/example.go"
-	dto += "/example.go"
-
-	if !force && !(fs.FileExist(router) && fs.FileExist(handle) && fs.FileExist(dto)) {
-		return errors.New("target file already exist, use -f flag to cover")
-	}
+	_ = fs.IsNotExistMkDir(trigger)
 
 	m := map[string]string{}
 	m["appNameExport"] = strings.ToUpper(appName[:1]) + appName[1:]
 	m["appName"] = strings.ToLower(appName[:1]) + appName[1:]
+
+	router += "/" + m["appName"] + ".go"
+	handle += "/" + m["appName"] + ".go"
+	dto += "/" + m["appName"] + ".go"
+	trigger += "/" + m["appName"] + ".go"
+
+	if !force && (fs.FileExist(router) || fs.FileExist(handle) || fs.FileExist(dto) || fs.FileExist(trigger)) {
+		return errors.New("target file already exist, use -f flag to cover")
+	}
 
 	if rt, err := template.ParseFiles("template/router.template"); err != nil {
 		return err
@@ -84,6 +89,14 @@ func load() error {
 		var b bytes.Buffer
 		err = rt.Execute(&b, m)
 		fs.FileCreate(b, dto)
+	}
+
+	if rt, err := template.ParseFiles("template/trigger.template"); err != nil {
+		return err
+	} else {
+		var b bytes.Buffer
+		err = rt.Execute(&b, m)
+		fs.FileCreate(b, trigger)
 	}
 
 	return nil

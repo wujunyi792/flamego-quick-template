@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	logx.Info.Println("start init Table ...")
+	logx.Info.Println("start routerInitialize Table ...")
 	dbManage = GetManage()
 }
 

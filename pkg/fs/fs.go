@@ -41,7 +41,7 @@ func CheckPermission(src string) bool {
 // IsNotExistMkDir 检查文件夹是否存在
 // 如果不存在则新建文件夹
 func IsNotExistMkDir(src string) error {
-	if exist := !FileExist(src); exist == false {
+	if exist := FileExist(src); exist == false {
 		if err := MkDir(src); err != nil {
 			return err
 		}

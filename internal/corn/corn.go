@@ -12,5 +12,5 @@ func init() {
 		logx.Error.Fatalln(err)
 	}
 	c.Start()
-	logx.Info.Println("corn init SUCCESS ")
+	logx.Info.Println("corn routerInitialize SUCCESS ")
 }

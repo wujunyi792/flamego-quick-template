@@ -8,9 +8,7 @@ import (
 	"github.com/flamego/flamego"
 	"github.com/spf13/cobra"
 	"github.com/wujunyi792/gin-template-new/config"
-	example "github.com/wujunyi792/gin-template-new/internal/app/example/router"
-	file "github.com/wujunyi792/gin-template-new/internal/app/file/router"
-	ws "github.com/wujunyi792/gin-template-new/internal/app/websocket/router"
+	"github.com/wujunyi792/gin-template-new/internal/app/routerInitialize"
 	"github.com/wujunyi792/gin-template-new/internal/cache"
 	"github.com/wujunyi792/gin-template-new/internal/database"
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
@@ -63,10 +61,7 @@ func load() {
 	E = flamego.New()
 	E.Use(flamego.Recovery(), middleware.RequestLog(), flamego.Renderer(), cors.CORS())
 
-	// TODO 新路由请在这注册
-	example.AppExampleInit(E)
-	file.AppFileInit(E)
-	ws.AppWebsocketInit(E)
+	routerInitialize.ApiInit(E)
 }
 
 func run() {
