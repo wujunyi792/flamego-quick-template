@@ -11,14 +11,8 @@ import (
 	"github.com/wujunyi792/gin-template-new/pkg/logx"
 )
 
-func init() {
-	if !config.GetConfig().CMS.Use {
-		panic("CMS not open, please check config")
-	}
-}
-
 func SendCMS(phone string, parameters []string) bool {
-	conf := &config.GetConfig().CMS.Config
+	conf := &config.GetConfig().CMS
 	credential := common.NewCredential(
 		conf.SecretId,
 		conf.SecretKey,

@@ -12,12 +12,9 @@ var mailConfig struct {
 	Instance *gomail.Dialer
 }
 
-func init() {
-	if !config.GetConfig().Mail.Use {
-		panic("mail not open, please check config")
-	}
+func InitMail() {
 
-	conf := &config.GetConfig().Mail.Config
+	conf := &config.GetConfig().Mail
 
 	mailConfig.Instance = gomail.NewDialer(
 		conf.SMTP,
@@ -35,7 +32,7 @@ func init() {
 }
 
 func SendMail(to, title, content string) error {
-	conf := &config.GetConfig().Mail.Config
+	conf := &config.GetConfig().Mail
 	m := gomail.NewMessage()
 	m.SetHeader("From", "Golang Program Manager"+"<"+conf.ACCOUNT+">")
 	m.SetHeader("To", to)

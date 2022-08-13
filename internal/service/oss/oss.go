@@ -21,7 +21,7 @@ var bucket *oss.Bucket
 func InitOSS() {
 	// 创建OSSClient实例。
 	var err error
-	conf := &config.GetConfig().OSS.Config
+	conf := &config.GetConfig().OSS
 	client, err = oss.New(conf.EndPoint, conf.AccessKeyId, conf.AccessKeySecret)
 	// 获取存储空间。
 	if err != nil {
@@ -34,7 +34,7 @@ func InitOSS() {
 }
 
 func UploadFileToOss(filename string, fd io.Reader) string {
-	conf := &config.GetConfig().OSS.Config
+	conf := &config.GetConfig().OSS
 	fname := uuid.NewV4().String() + path.Ext(filename)
 	err := bucket.PutObject(conf.Path+fname, fd)
 	pictureUrl := conf.BaseURL + conf.Path + fname
@@ -52,7 +52,7 @@ func getGmtIso8601(expireEnd int64) string {
 
 // GetPolicyToken 客户端直接上传OSS需要的配置 https://help.aliyun.com/document_detail/91818.htm?spm=a2c4g.11186623.0.0.1607566anAGeY2#concept-mhj-zzt-2fb
 func GetPolicyToken() interface{} {
-	conf := &config.GetConfig().OSS.Config
+	conf := &config.GetConfig().OSS
 	now := time.Now().Unix()
 	expireEnd := now + conf.ExpireTime
 	var tokenExpire = getGmtIso8601(expireEnd)

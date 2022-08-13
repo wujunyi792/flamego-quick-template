@@ -14,38 +14,9 @@ type GlobalConfig struct {
 	} `yaml:"Auth"`
 	Databases []Datasource `yaml:"Databases"`
 	Caches    []Cache      `yaml:"Caches"`
-	OSS       struct {
-		Use    bool `yaml:"Use"`
-		Config struct {
-			AccessKeySecret string `yaml:"AccessKeySecret"`
-			AccessKeyId     string `yaml:"AccessKeyId"`
-			EndPoint        string `yaml:"EndPoint"`
-			BucketName      string `yaml:"BucketName"`
-			BaseURL         string `yaml:"BaseURL"`
-			Path            string `yaml:"Path"`
-			CallbackUrl     string `yaml:"CallbackUrl"`
-			ExpireTime      int64  `yaml:"ExpireTime"`
-		} `yaml:"Config"`
-	} `yaml:"Oss"`
-	Mail struct {
-		Use    bool `yaml:"Use"`
-		Config struct {
-			SMTP     string `yaml:"Smtp"`
-			PORT     int    `yaml:"Port"`
-			ACCOUNT  string `yaml:"Account"`
-			PASSWORD string `yaml:"Password"`
-		} `yaml:"Config"`
-	} `yaml:"Mail"`
-	CMS struct {
-		Use    bool `yaml:"Use"`
-		Config struct {
-			SecretId   string `yaml:"SecretId"`
-			SecretKey  string `yaml:"SecretKey"`
-			AppId      string `yaml:"AppId"`
-			TemplateId string `yaml:"TemplateId"`
-			Sign       string `yaml:"Sign"`
-		} `yaml:"Config"`
-	} `yaml:"Cms"`
+	OSS       Oss          `yaml:"Oss"`
+	Mail      Mail         `yaml:"Mail"`
+	CMS       Cms          `yaml:"Cms"`
 }
 
 type Datasource struct {
@@ -65,4 +36,30 @@ type Cache struct {
 	PORT     string `yaml:"Port"`
 	PASSWORD string `yaml:"Password"`
 	DB       int    `yaml:"Db"`
+}
+
+type Oss struct {
+	AccessKeySecret string `yaml:"AccessKeySecret"`
+	AccessKeyId     string `yaml:"AccessKeyId"`
+	EndPoint        string `yaml:"EndPoint"`
+	BucketName      string `yaml:"BucketName"`
+	BaseURL         string `yaml:"BaseURL"`
+	Path            string `yaml:"Path"`
+	CallbackUrl     string `yaml:"CallbackUrl"`
+	ExpireTime      int64  `yaml:"ExpireTime"`
+}
+
+type Mail struct {
+	SMTP     string `yaml:"Smtp"`
+	PORT     int    `yaml:"Port"`
+	ACCOUNT  string `yaml:"Account"`
+	PASSWORD string `yaml:"Password"`
+}
+
+type Cms struct {
+	SecretId   string `yaml:"SecretId"`
+	SecretKey  string `yaml:"SecretKey"`
+	AppId      string `yaml:"AppId"`
+	TemplateId string `yaml:"TemplateId"`
+	Sign       string `yaml:"Sign"`
 }
