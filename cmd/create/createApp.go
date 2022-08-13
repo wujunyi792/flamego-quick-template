@@ -7,6 +7,7 @@ import (
 	"github.com/wujunyi792/gin-template-new/pkg/fs"
 	"os"
 	"path"
+	"strings"
 	"text/template"
 )
 
@@ -58,7 +59,8 @@ func load() error {
 	}
 
 	m := map[string]string{}
-	m["appName"] = appName
+	m["appNameExport"] = strings.ToUpper(appName[:1]) + appName[1:]
+	m["appName"] = strings.ToLower(appName[:1]) + appName[1:]
 
 	if rt, err := template.ParseFiles("template/router.template"); err != nil {
 		return err
@@ -73,7 +75,7 @@ func load() error {
 	} else {
 		var b bytes.Buffer
 		err = rt.Execute(&b, m)
-		fs.FileCreate(b, router)
+		fs.FileCreate(b, handle)
 	}
 
 	if rt, err := template.ParseFiles("template/dto.template"); err != nil {
@@ -81,7 +83,7 @@ func load() error {
 	} else {
 		var b bytes.Buffer
 		err = rt.Execute(&b, m)
-		fs.FileCreate(b, router)
+		fs.FileCreate(b, dto)
 	}
 
 	return nil

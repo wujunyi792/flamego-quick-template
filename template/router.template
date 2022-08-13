@@ -7,7 +7,7 @@ import (
 	"github.com/wujunyi792/gin-template-new/internal/middleware"
 )
 
-func App{{.appName}}Init(e *flamego.Flame) {
+func App{{.appNameExport}}Init(e *flamego.Flame) {
 	e.Group("/v1/{{.appName}}", func() {
 		ExampleGroup(e)
 	})
