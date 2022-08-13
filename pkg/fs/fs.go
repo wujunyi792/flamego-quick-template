@@ -1,6 +1,7 @@
 package fs
 
 import (
+	"bytes"
 	"io/ioutil"
 	"log"
 	"mime/multipart"
@@ -57,6 +58,18 @@ func MkDir(src string) error {
 	}
 
 	return nil
+}
+
+func FileCreate(content bytes.Buffer, name string) {
+	file, err := os.Create(name)
+	if err != nil {
+		log.Println(err)
+	}
+	_, err = file.WriteString(content.String())
+	if err != nil {
+		log.Println(err)
+	}
+	file.Close()
 }
 
 // Open 打开文件

@@ -1,0 +1,20 @@
+package router
+
+import (
+	"github.com/flamego/flamego"
+	"github.com/wujunyi792/gin-template-new/internal/app/{{.appName}}/dto"
+	"github.com/wujunyi792/gin-template-new/internal/app/{{.appName}}/handle"
+	"github.com/wujunyi792/gin-template-new/internal/middleware"
+)
+
+func App{{.appName}}Init(e *flamego.Flame) {
+	e.Group("/v1/{{.appName}}", func() {
+		ExampleGroup(e)
+	})
+}
+
+
+func ExampleGroup(e *flamego.Flame) {
+	e.Get("", handle.HandelExampleGet)
+	e.Post("", middleware.InjectRequest[dto.ExamplePost](), handle.HandelExamplePost)
+}
