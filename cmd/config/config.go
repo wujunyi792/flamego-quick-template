@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/wujunyi792/gin-template-new/config"
+	"github.com/wujunyi792/flamego-quick-template/config"
 	"os"
 )
 

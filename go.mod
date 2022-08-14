@@ -1,4 +1,4 @@
-module github.com/wujunyi792/gin-template-new
+module github.com/wujunyi792/flamego-quick-template
 
 go 1.18
 

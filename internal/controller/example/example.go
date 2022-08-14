@@ -1,9 +1,9 @@
 package example
 
 import (
-	"github.com/wujunyi792/gin-template-new/internal/database"
-	"github.com/wujunyi792/gin-template-new/internal/models/databasesModel"
-	"github.com/wujunyi792/gin-template-new/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/database"
+	"github.com/wujunyi792/flamego-quick-template/internal/models/databasesModel"
+	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 	"gorm.io/gorm"
 	"sync"
 )

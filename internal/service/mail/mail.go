@@ -2,8 +2,8 @@ package mail
 
 import (
 	"fmt"
-	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/config"
+	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 	"gopkg.in/gomail.v2"
 	"time"
 )

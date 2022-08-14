@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/flamego/flamego"
-	"github.com/wujunyi792/gin-template-new/pkg/jwt"
+	"github.com/wujunyi792/flamego-quick-template/pkg/jwt"
 )
 
 func Authorization(c flamego.Context, r flamego.Render) {

@@ -7,8 +7,8 @@ import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111" // 引入sms
-	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/config"
+	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 )
 
 func SendCMS(phone string, parameters []string) bool {

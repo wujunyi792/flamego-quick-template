@@ -3,9 +3,9 @@ package driver
 import (
 	"fmt"
 	"github.com/go-redis/redis"
-	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/cache/types"
-	"github.com/wujunyi792/gin-template-new/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/config"
+	"github.com/wujunyi792/flamego-quick-template/internal/cache/types"
+	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 	"time"
 )
 

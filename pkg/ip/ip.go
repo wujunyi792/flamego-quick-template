@@ -1,7 +1,7 @@
 package ip
 
 import (
-	"github.com/wujunyi792/gin-template-new/pkg/colorful"
+	"github.com/wujunyi792/flamego-quick-template/pkg/colorful"
 	"net"
 )
 

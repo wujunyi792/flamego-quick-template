@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/wujunyi792/gin-template-new/internal/database/driver"
+	"github.com/wujunyi792/flamego-quick-template/internal/database/driver"
 	"gorm.io/gorm"
 )
 

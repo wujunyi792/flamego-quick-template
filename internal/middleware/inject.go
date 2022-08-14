@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"github.com/flamego/flamego"
-	"github.com/wujunyi792/gin-template-new/internal/cache"
-	"github.com/wujunyi792/gin-template-new/internal/database"
-	"github.com/wujunyi792/gin-template-new/internal/models/jwtModel"
-	"github.com/wujunyi792/gin-template-new/internal/websocket"
+	"github.com/wujunyi792/flamego-quick-template/internal/cache"
+	"github.com/wujunyi792/flamego-quick-template/internal/database"
+	"github.com/wujunyi792/flamego-quick-template/internal/models/jwtModel"
+	"github.com/wujunyi792/flamego-quick-template/internal/websocket"
 )
 
 func InjectDB(key string) flamego.Handler {

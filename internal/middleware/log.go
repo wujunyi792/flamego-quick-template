@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/flamego/flamego"
-	"github.com/wujunyi792/gin-template-new/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 	"time"
 )
 

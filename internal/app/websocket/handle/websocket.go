@@ -1,8 +1,8 @@
 package handle
 
 import (
-	"github.com/wujunyi792/gin-template-new/internal/websocket"
-	"github.com/wujunyi792/gin-template-new/pkg/utils/gen/xrandom"
+	"github.com/wujunyi792/flamego-quick-template/internal/websocket"
+	"github.com/wujunyi792/flamego-quick-template/pkg/utils/gen/xrandom"
 	"net/http"
 )
 

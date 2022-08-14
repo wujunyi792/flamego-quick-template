@@ -2,7 +2,7 @@ package sonyflake
 
 import (
 	"github.com/sony/sonyflake"
-	"github.com/wujunyi792/gin-template-new/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 )
 
 var flake *sonyflake.Sonyflake

@@ -1,6 +1,6 @@
 package routerInitialize
 
-import {{.appName}} "github.com/wujunyi792/gin-template-new/internal/app/{{.appName}}/router"
+import {{.appName}} "github.com/wujunyi792/flamego-quick-template/internal/app/{{.appName}}/router"
 
 func init() {
 	routers = append(routers, {{.appName}}.App{{.appNameExport}}Init)

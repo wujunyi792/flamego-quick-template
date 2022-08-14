@@ -3,8 +3,8 @@ package jwt
 import (
 	"errors"
 	"github.com/golang-jwt/jwt"
-	"github.com/wujunyi792/gin-template-new/config"
-	"github.com/wujunyi792/gin-template-new/internal/models/jwtModel"
+	"github.com/wujunyi792/flamego-quick-template/config"
+	"github.com/wujunyi792/flamego-quick-template/internal/models/jwtModel"
 	"time"
 )
 
