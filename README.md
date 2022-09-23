@@ -26,3 +26,9 @@
 - [ ] Complete the config
 - [ ] If you deploy with docker engine, edit `docker-copmose.yml`, Especially port mappings and service names
 
+
+## 新增服务
+```shell
+go run main.go create -n [newAppName]
+```
+然后会在`internal/app`目录下生成`newAppName`目录，里面包含了`handel`、`service`、`router`等目录，新增的路由会被自动注册
