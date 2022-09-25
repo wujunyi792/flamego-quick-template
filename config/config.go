@@ -7,7 +7,6 @@ import (
 	"github.com/wujunyi792/flamego-quick-template/pkg/colorful"
 	"github.com/wujunyi792/flamego-quick-template/pkg/fs"
 	"gopkg.in/yaml.v3"
-	"io/ioutil"
 	"os"
 )
 
@@ -45,7 +44,7 @@ func LoadConfig(configYml string) {
 func GenConfig(configYml string, force bool) error {
 	if !fs.FileExist(configYml) || force {
 		data, _ := yaml.Marshal(&GlobalConfig{MODE: "debug"})
-		err := ioutil.WriteFile(configYml, data, 0644)
+		err := os.WriteFile(configYml, data, 0644)
 		if err != nil {
 			return errors.New(colorful.Red("Generate file with error: " + err.Error()))
 		}
