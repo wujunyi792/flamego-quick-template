@@ -16,10 +16,10 @@ const (
 
 func Check(minLength, maxLength, minLevel int, pwd string) error {
 	if len(pwd) < minLength {
-		return errors.New(fmt.Sprintf("BAD PASSWORD: The password is shorter than %d characters", minLength))
+		return fmt.Errorf("BAD PASSWORD: The password is shorter than %d characters", minLength)
 	}
 	if len(pwd) > maxLength {
-		return errors.New(fmt.Sprintf("BAD PASSWORD: The password is logner than %d characters", maxLength))
+		return fmt.Errorf("BAD PASSWORD: The password is logner than %d characters", maxLength)
 	}
 
 	var level int = levelD

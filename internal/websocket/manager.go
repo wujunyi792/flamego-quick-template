@@ -1,7 +1,6 @@
 package websocket
 
 import (
-	"fmt"
 	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 	"log"
 	"net/http"
@@ -97,7 +96,7 @@ func (c *socketClient) readPump() {
 	for {
 		_, message, err := c.conn.ReadMessage()
 		if err != nil {
-			logx.Error.Println(fmt.Sprintf("error: %v", err))
+			logx.Error.Printf("error: %v", err)
 			break
 		}
 		c.manager.receive <- map[*socketClient][]byte{
