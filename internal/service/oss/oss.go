@@ -67,7 +67,7 @@ func GetPolicyToken() interface{} {
 	policyConfig.Conditions = append(policyConfig.Conditions, condition)
 
 	//calucate signature
-	result, err := json.Marshal(policyConfig)
+	result, _ := json.Marshal(policyConfig)
 	debyte := base64.StdEncoding.EncodeToString(result)
 	h := hmac.New(func() hash.Hash { return sha1.New() }, []byte(conf.AccessKeySecret))
 	io.WriteString(h, debyte)
