@@ -71,7 +71,7 @@ func load() error {
 		return err
 	} else {
 		var b bytes.Buffer
-		err = rt.Execute(&b, m)
+		_ = rt.Execute(&b, m)
 		fs.FileCreate(b, router)
 	}
 
@@ -79,7 +79,7 @@ func load() error {
 		return err
 	} else {
 		var b bytes.Buffer
-		err = rt.Execute(&b, m)
+		_ = rt.Execute(&b, m)
 		fs.FileCreate(b, handle)
 	}
 
@@ -87,7 +87,7 @@ func load() error {
 		return err
 	} else {
 		var b bytes.Buffer
-		err = rt.Execute(&b, m)
+		_ = rt.Execute(&b, m)
 		fs.FileCreate(b, dto)
 	}
 
@@ -95,7 +95,7 @@ func load() error {
 		return err
 	} else {
 		var b bytes.Buffer
-		err = rt.Execute(&b, m)
+		_ = rt.Execute(&b, m)
 		fs.FileCreate(b, trigger)
 	}
 
