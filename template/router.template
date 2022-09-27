@@ -15,6 +15,6 @@ func App{{.appNameExport}}Init(e *flamego.Flame) {
 
 
 func ExampleGroup(e *flamego.Flame) {
-	e.Get("", handle.HandelExampleGet)
-	e.Post("", middleware.InjectRequest[dto.ExamplePost](), handle.HandelExamplePost)
+	e.Get("", handle.HandleExampleGet)
+	e.Post("", middleware.InjectRequest[dto.ExamplePost](), handle.HandleExamplePost)
 }

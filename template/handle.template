@@ -8,7 +8,7 @@ import (
 	"github.com/wujunyi792/flamego-quick-template/internal/middleware"
 )
 
-func HandelExampleGet(c flamego.Context, r flamego.Render) {
+func HandleExampleGet(c flamego.Context, r flamego.Render) {
 	data := struct {
 		UA         string
 		Host       string
@@ -27,6 +27,6 @@ func HandelExampleGet(c flamego.Context, r flamego.Render) {
 	middleware.HTTPSuccess(r, data)
 }
 
-func HandelExamplePost(r flamego.Render, req dto.ExamplePost) {
+func HandleExamplePost(r flamego.Render, req dto.ExamplePost) {
 	middleware.HTTPSuccess(r, req.Msg)
 }

@@ -7,7 +7,7 @@ import (
 
 func AliGroup(e *flamego.Flame) {
 	e.Group("/ali", func() {
-		e.Get("/token", handle.HandelGetAliUploadToken)
-		e.Post("/upload", handle.HandelAliUpLoad)
+		e.Get("/token", handle.HandleGetAliUploadToken)
+		e.Post("/upload", handle.HandleAliUpLoad)
 	})
 }

@@ -11,6 +11,6 @@ func AppWebsocketInit(e *flamego.Flame) {
 	websocket.InitSocketManager("example")
 	e.Group("/v1/websocket", func() {
 		e.Use(middleware.InjectWebsocket("example"))
-		e.Get("/echo", handle.HandelWebsocketEcho)
+		e.Get("/echo", handle.HandleWebsocketEcho)
 	})
 }
