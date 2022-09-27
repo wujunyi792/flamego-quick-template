@@ -43,13 +43,13 @@ func load() error {
 	}
 
 	router := path.Join(dir, appName, "router")
-	handle := path.Join(dir, appName, "handle")
+	handler := path.Join(dir, appName, "handler")
 	dto := path.Join(dir, appName, "dto")
 	service := path.Join(dir, appName, "service")
 	trigger := path.Join(dir, "routerInitialize")
 
 	_ = fs.IsNotExistMkDir(router)
-	_ = fs.IsNotExistMkDir(handle)
+	_ = fs.IsNotExistMkDir(handler)
 	_ = fs.IsNotExistMkDir(dto)
 	_ = fs.IsNotExistMkDir(service)
 	_ = fs.IsNotExistMkDir(trigger)
@@ -59,11 +59,11 @@ func load() error {
 	m["appName"] = strings.ToLower(appName[:1]) + appName[1:]
 
 	router += "/" + m["appName"] + ".go"
-	handle += "/" + m["appName"] + ".go"
+	handler += "/" + m["appName"] + ".go"
 	dto += "/" + m["appName"] + ".go"
 	trigger += "/" + m["appName"] + ".go"
 
-	if !force && (fs.FileExist(router) || fs.FileExist(handle) || fs.FileExist(dto) || fs.FileExist(trigger)) {
+	if !force && (fs.FileExist(router) || fs.FileExist(handler) || fs.FileExist(dto) || fs.FileExist(trigger)) {
 		return errors.New("target file already exist, use -f flag to cover")
 	}
 
@@ -75,12 +75,12 @@ func load() error {
 		fs.FileCreate(b, router)
 	}
 
-	if rt, err := template.ParseFiles("template/handle.template"); err != nil {
+	if rt, err := template.ParseFiles("template/handler.template"); err != nil {
 		return err
 	} else {
 		var b bytes.Buffer
 		_ = rt.Execute(&b, m)
-		fs.FileCreate(b, handle)
+		fs.FileCreate(b, handler)
 	}
 
 	if rt, err := template.ParseFiles("template/dto.template"); err != nil {

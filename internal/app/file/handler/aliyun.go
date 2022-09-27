@@ -1,4 +1,4 @@
-package handle
+package handler
 
 import (
 	"github.com/flamego/flamego"
@@ -6,11 +6,11 @@ import (
 	"github.com/wujunyi792/flamego-quick-template/internal/service/oss"
 )
 
-func HandelGetAliUploadToken(r flamego.Render) {
+func HandleGetAliUploadToken(r flamego.Render) {
 	middleware.HTTPSuccess(r, oss.GetPolicyToken())
 }
 
-func HandelAliUpLoad(r flamego.Render, c flamego.Context) {
+func HandleAliUpLoad(r flamego.Render, c flamego.Context) {
 	file, header, err := c.Request().FormFile("upload")
 	if err != nil {
 		middleware.InValidParam(r)
