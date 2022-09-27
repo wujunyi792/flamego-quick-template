@@ -82,7 +82,7 @@ func run() {
 		println(fmt.Sprintf("-  Network: http://%s:%s", host, config.GetConfig().Port))
 	}
 
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	println(colorful.Blue("Shutting down server..."))

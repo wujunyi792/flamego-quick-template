@@ -15,8 +15,8 @@ type resp struct {
 func InjectRequest[T any]() flamego.Handler {
 	var req T
 	return func(r flamego.Render, c flamego.Context) {
-		body, err := c.Request().Body().Bytes()
-		if err = json.Unmarshal(body, &req); err != nil {
+		body, _ := c.Request().Body().Bytes()
+		if err := json.Unmarshal(body, &req); err != nil {
 			InValidParam(r)
 			return
 		}

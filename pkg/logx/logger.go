@@ -14,7 +14,7 @@ type debugDefault struct {
 
 func (d *debugDefault) Println(v ...interface{}) {
 	if config.GetConfig().MODE == "debug" {
-		d.Debug.Println(v)
+		d.Debug.Println(v...)
 	}
 }
 

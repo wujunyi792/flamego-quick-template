@@ -2,7 +2,6 @@ package tecentCMS
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
@@ -54,19 +53,16 @@ func SendCMS(phone string, parameters []string) bool {
 	response, err := client.SendSms(request)
 	// 处理异常
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
-		logx.Error.Println(fmt.Sprintf("An API error has returned: %s", err))
+		logx.Error.Printf("An API error has returned: %s", err)
 		return false
 	}
 	// 非SDK异常，直接失败。实际代码中可以加入其他的处理。
 	if err != nil {
-		logx.Error.Println(fmt.Sprintf("An SDK error has returned: %s", err))
+		logx.Error.Printf("An SDK error has returned: %s", err)
 		return false
 	}
 	b, _ := json.Marshal(response.Response)
 	// 打印返回的json字符串
-	logx.Info.Println(fmt.Sprintf("%s", b))
-	if *response.Response.SendStatusSet[0].Code != "Ok" {
-		return false
-	}
-	return true
+	logx.Info.Println(string(b))
+	return *response.Response.SendStatusSet[0].Code == "Ok"
 }
