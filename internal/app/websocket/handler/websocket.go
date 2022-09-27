@@ -1,4 +1,4 @@
-package handle
+package handler
 
 import (
 	"github.com/wujunyi792/flamego-quick-template/internal/websocket"
