@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"encoding/json"
 	"github.com/flamego/flamego"
 )
 
@@ -10,18 +9,6 @@ type resp struct {
 	Msg   string      `json:"msg"`
 	Count int         `json:"count,omitempty"`
 	Data  interface{} `json:"data,omitempty"`
-}
-
-func InjectRequest[T any]() flamego.Handler {
-	var req T
-	return func(r flamego.Render, c flamego.Context) {
-		body, _ := c.Request().Body().Bytes()
-		if err := json.Unmarshal(body, &req); err != nil {
-			InValidParam(r)
-			return
-		}
-		c.Map(req)
-	}
 }
 
 func http(r flamego.Render, code int, msg string, data interface{}, count ...int) {

@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/flamego/flamego"
-	"github.com/wujunyi792/flamego-quick-template/internal/cache"
-	"github.com/wujunyi792/flamego-quick-template/internal/database"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/cache"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/database"
 	"github.com/wujunyi792/flamego-quick-template/internal/models/jwtModel"
 	"github.com/wujunyi792/flamego-quick-template/internal/websocket"
 )

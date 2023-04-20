@@ -2,8 +2,8 @@ package cache
 
 import (
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/internal/cache/driver"
-	"github.com/wujunyi792/flamego-quick-template/internal/cache/types"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/cache/driver"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/cache/types"
 )
 
 type Creator interface {

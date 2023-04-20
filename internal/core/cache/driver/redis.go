@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis"
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/internal/cache/types"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/cache/types"
 	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
 	"time"
 )
