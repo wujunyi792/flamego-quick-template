@@ -5,7 +5,7 @@ import (
 	"github.com/go-redis/redis"
 	"github.com/wujunyi792/flamego-quick-template/config"
 	"github.com/wujunyi792/flamego-quick-template/internal/core/cache/types"
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 	"time"
 )
 
@@ -20,7 +20,7 @@ func (c RedisCreator) Create(conf config.Cache) (types.Cache, error) {
 	})
 	_, err := r.client.Ping().Result()
 	if err != nil {
-		logx.Error.Fatalln(err)
+		logx.NameSpace("redis").Fatalln(err)
 	}
 	return r, nil
 }
@@ -35,7 +35,7 @@ func (r RedisCache) GetInt(key string) (int, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	return 0, false
 }
@@ -46,7 +46,7 @@ func (r RedisCache) GetInt64(key string) (int64, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	return 0, false
 }
@@ -57,7 +57,7 @@ func (r RedisCache) GetFloat32(key string) (float32, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	return 0, false
 }
@@ -68,7 +68,7 @@ func (r RedisCache) GetFloat64(key string) (float64, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	return 0, false
 }
@@ -79,7 +79,7 @@ func (r RedisCache) GetString(key string) (string, bool) {
 		return value, true
 	}
 	if err != redis.Nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	return "", false
 }
@@ -87,7 +87,7 @@ func (r RedisCache) GetString(key string) (string, bool) {
 func (r RedisCache) GetBool(key string) (bool, bool) {
 	value, err := r.client.Get(key).Result()
 	if err != redis.Nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	if value == "1" {
 		return true, true
@@ -106,7 +106,7 @@ func (r RedisCache) Del(key string) bool {
 	if err == redis.Nil {
 		return false
 	} else if err != nil {
-		logx.Error.Println(err)
+		logx.NameSpace("redis").Errorln(err)
 	}
 	return true
 }

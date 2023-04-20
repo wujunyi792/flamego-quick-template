@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/flamego/flamego"
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/internal/app/{{.appName}}/dto"
+	"github.com/wujunyi792/flamego-quick-template/internal/app/ping/dto"
 	"github.com/wujunyi792/flamego-quick-template/internal/middleware/response"
 )
 
@@ -27,6 +27,6 @@ func HandleExampleGet(c flamego.Context, r flamego.Render) {
 	response.HTTPSuccess(r, data)
 }
 
-func HandleExamplePost(r flamego.Render, req dto.ExamplePost) {
-	response.HTTPSuccess(r, req.Msg)
+func HandlePing(r flamego.Render, req dto.ExamplePost) {
+	response.HTTPSuccess(r, req)
 }

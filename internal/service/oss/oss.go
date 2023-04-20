@@ -8,7 +8,7 @@ import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	uuid "github.com/satori/go.uuid"
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 	"hash"
 	"io"
 	"path"
@@ -17,6 +17,7 @@ import (
 
 var client *oss.Client
 var bucket *oss.Bucket
+var log = logx.NameSpace("oss")
 
 func InitOSS() {
 	// 创建OSSClient实例。
@@ -25,11 +26,11 @@ func InitOSS() {
 	client, err = oss.New(conf.EndPoint, conf.AccessKeyId, conf.AccessKeySecret)
 	// 获取存储空间。
 	if err != nil {
-		logx.Error.Fatalln(err)
+		log.Fatalln(err)
 	}
 	bucket, err = client.Bucket(conf.BucketName)
 	if err != nil {
-		logx.Error.Fatalln("阿里云OSS连接失败: ", err)
+		log.Fatalln("阿里云OSS连接失败: ", err)
 	}
 }
 
@@ -39,7 +40,7 @@ func UploadFileToOss(filename string, fd io.Reader) string {
 	err := bucket.PutObject(conf.Path+fname, fd)
 	pictureUrl := conf.BaseURL + conf.Path + fname
 	if err != nil {
-		logx.Error.Println("File upload to OSS fail，fileName：", pictureUrl, ", err: :", err)
+		log.Errorln("File upload to OSS fail，fileName：", pictureUrl, ", err: :", err)
 		return ""
 	}
 	return pictureUrl
@@ -79,7 +80,7 @@ func GetPolicyToken() interface{} {
 	callbackParam.CallbackBodyType = "application/x-www-form-urlencoded"
 	callbackStr, err := json.Marshal(callbackParam)
 	if err != nil {
-		logx.Error.Println("callback json err:", err)
+		log.Errorln("callback json err:", err)
 	}
 	callbackBase64 := base64.StdEncoding.EncodeToString(callbackStr)
 

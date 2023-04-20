@@ -8,13 +8,6 @@ import (
 )
 
 func App{{.appNameExport}}Init(e *flamego.Flame) {
-	e.Group("/{{.appName}}/v1", func() {
-		ExampleGroup(e)
-	})
-}
-
-
-func ExampleGroup(e *flamego.Flame) {
-	e.Get("", handler.HandleExampleGet)
-	e.Post("", binding.JSON(dto.ExamplePost{}), handler.HandleExamplePost)
+    e.Get("/{{.appName}}/v1", handler.HandleExampleGet)
+    e.Post("/{{.appName}}/v1", binding.JSON(dto.ExamplePost{}), handler.HandleExamplePost)
 }

@@ -3,9 +3,13 @@ package mail
 import (
 	"fmt"
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 	"gopkg.in/gomail.v2"
 	"time"
+)
+
+var (
+	log = logx.NameSpace("mail")
 )
 
 var mailConfig struct {
@@ -26,9 +30,9 @@ func InitMail() {
 	err := SendMail(conf.ACCOUNT, config.GetConfig().ProgramName+` Golang Program routerInitialize`, fmt.Sprintf("Name: %s\nVERSION: %s\nAuthor: %s\nTime: %s", config.GetConfig().ProgramName, config.GetConfig().VERSION, config.GetConfig().AUTHOR, time.Now().Format("2006-01-02 15:04:05")))
 
 	if err != nil {
-		logx.Error.Fatalln(err)
+		log.Fatalln(err)
 	}
-	logx.Info.Println("mail routerInitialize SUCCESS ")
+	log.Infoln("mail routerInitialize SUCCESS ")
 }
 
 func SendMail(to, title, content string) error {

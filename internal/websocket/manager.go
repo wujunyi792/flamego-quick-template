@@ -1,7 +1,7 @@
 package websocket
 
 import (
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 	"log"
 	"net/http"
 	"time"
@@ -90,13 +90,13 @@ func (c *socketClient) readPump() {
 		c.manager.unregister <- c
 		err := c.conn.Close()
 		if err != nil {
-			logx.Error.Println(err)
+			logx.NameSpace("ws").Errorln(err)
 		}
 	}()
 	for {
 		_, message, err := c.conn.ReadMessage()
 		if err != nil {
-			logx.Error.Printf("error: %v", err)
+			logx.NameSpace("ws").Errorln("error: %v", err)
 			break
 		}
 		c.manager.receive <- map[*socketClient][]byte{
@@ -112,7 +112,7 @@ func (c *socketClient) writePump() {
 	defer func() {
 		err := c.conn.Close()
 		if err != nil {
-			logx.Error.Println(err)
+			logx.NameSpace("ws").Errorln(err)
 		}
 	}()
 	for {
@@ -170,7 +170,7 @@ func InitSocketManager(key string) {
 		key = "*"
 	}
 	if _, ok := managers[key]; ok {
-		logx.Error.Fatalln("socket manager key duplication")
+		logx.NameSpace("ws").Fatalln("socket manager key duplication")
 	}
 	m := newManager()
 	go m.run()
@@ -181,6 +181,6 @@ func GetSocketManager(key string) *SocketManager {
 	if m, ok := managers[key]; ok {
 		return m
 	}
-	logx.Error.Println("socket client ", key, " not found")
+	logx.NameSpace("ws").Errorln("socket client ", key, " not found")
 	return nil
 }

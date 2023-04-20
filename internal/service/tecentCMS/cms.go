@@ -7,7 +7,7 @@ import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111" // 引入sms
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 )
 
 func SendCMS(phone string, parameters []string) bool {
@@ -53,16 +53,17 @@ func SendCMS(phone string, parameters []string) bool {
 	response, err := client.SendSms(request)
 	// 处理异常
 	if _, ok := err.(*errors.TencentCloudSDKError); ok {
-		logx.Error.Printf("An API error has returned: %s", err)
+		logx.NameSpace("cms").Errorln("An API error has returned: %s", err)
 		return false
 	}
 	// 非SDK异常，直接失败。实际代码中可以加入其他的处理。
 	if err != nil {
-		logx.Error.Printf("An SDK error has returned: %s", err)
+		logx.NameSpace("cms").Errorln("An SDK error has returned: %s", err)
 		return false
 	}
 	b, _ := json.Marshal(response.Response)
 	// 打印返回的json字符串
-	logx.Info.Println(string(b))
+	logx.NameSpace("cms").Infof("SendSMS: %s -> %s", phone, string(b))
+
 	return *response.Response.SendStatusSet[0].Code == "Ok"
 }

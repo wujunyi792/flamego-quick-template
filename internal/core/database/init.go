@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 	"gorm.io/gorm"
 	"sync"
 )
@@ -19,7 +19,7 @@ func InitDB() {
 		if source.Key == "" {
 			source.Key = "*"
 		}
-		logx.Info.Printf("create datasource %s => %s:%s", source.Key, source.IP, source.PORT)
+		logx.NameSpace("DB").Infoln("create datasource %s => %s:%s", source.Key, source.IP, source.PORT)
 	}
 }
 
@@ -34,7 +34,7 @@ func setDbByKey(key string, db *gorm.DB) {
 		key = "*"
 	}
 	if GetDb(key) != nil {
-		logx.Error.Fatalln("duplicate db key: " + key)
+		logx.NameSpace("DB").Fatalln("duplicate db key: " + key)
 	}
 	mux.Lock()
 	defer mux.Unlock()
@@ -44,12 +44,12 @@ func setDbByKey(key string, db *gorm.DB) {
 func mustCreateGorm(database config.Datasource) *gorm.DB {
 	var creator = getCreatorByType(database.Type)
 	if creator == nil {
-		logx.Error.Fatalf("fail to find creator for types:%s", database.Type)
+		logx.NameSpace("DB").Fatalf("fail to find creator for types:%s", database.Type)
 		return nil
 	}
 	db, err := creator.Create(database.IP, database.PORT, database.USER, database.PASSWORD, database.DATABASE)
 	if err != nil {
-		logx.Error.Fatalln(err)
+		logx.NameSpace("DB").Fatalln(err)
 		return nil
 	}
 

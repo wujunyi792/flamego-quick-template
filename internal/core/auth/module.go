@@ -1,22 +1,25 @@
-package jwt
+package auth
 
 import (
 	"errors"
 	"github.com/golang-jwt/jwt"
 	"github.com/wujunyi792/flamego-quick-template/config"
-	"github.com/wujunyi792/flamego-quick-template/internal/models/jwtModel"
 	"time"
 )
 
+type UserInfo struct {
+	Uid string
+}
+
 type JWTClaims struct {
-	Info jwtModel.UserInfo
+	Info UserInfo
 	jwt.StandardClaims
 }
 
 const TokenExpireDuration = time.Hour * 12
 
 // GenToken 生成JWT
-func GenToken(info jwtModel.UserInfo) (string, error) {
+func GenToken(info UserInfo) (string, error) {
 	c := JWTClaims{
 		Info: info,
 		StandardClaims: jwt.StandardClaims{
@@ -25,13 +28,13 @@ func GenToken(info jwtModel.UserInfo) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-	return token.SignedString(config.GetConfig().Auth.Secret)
+	return token.SignedString([]byte(config.GetConfig().Auth.Secret))
 }
 
 // ParseToken 解析JWT
 func ParseToken(tokenString string) (*JWTClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &JWTClaims{}, func(token *jwt.Token) (i interface{}, err error) {
-		return config.GetConfig().Auth.Secret, nil
+		return []byte(config.GetConfig().Auth.Secret), nil
 	})
 	if err != nil {
 		return nil, err

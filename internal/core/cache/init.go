@@ -3,7 +3,7 @@ package cache
 import (
 	"github.com/wujunyi792/flamego-quick-template/config"
 	"github.com/wujunyi792/flamego-quick-template/internal/core/cache/types"
-	"github.com/wujunyi792/flamego-quick-template/pkg/logx"
+	"github.com/wujunyi792/flamego-quick-template/internal/core/logx"
 	"sync"
 )
 
@@ -19,7 +19,7 @@ func InitCache() {
 		if source.Key == "" {
 			source.Key = "*"
 		}
-		logx.Info.Printf("create cache %s => %s:%s", source.Key, source.IP, source.PORT)
+		logx.NameSpace("cache").Infoln("create cache %s => %s:%s", source.Key, source.IP, source.PORT)
 	}
 }
 
@@ -34,7 +34,7 @@ func setCacheByKey(key string, cache types.Cache) {
 		key = "*"
 	}
 	if GetCache(key) != nil {
-		logx.Error.Fatalln("duplicate db key: " + key)
+		logx.NameSpace("cache").Fatalln("duplicate db key: " + key)
 	}
 	mux.Lock()
 	defer mux.Unlock()
@@ -44,12 +44,12 @@ func setCacheByKey(key string, cache types.Cache) {
 func mustCreateCache(conf config.Cache) types.Cache {
 	var creator = getCreatorByType(conf.Type)
 	if creator == nil {
-		logx.Error.Fatalf("fail to find creator for cache types:%s", conf.Type)
+		logx.NameSpace("cache").Fatalln("fail to find creator for cache types:%s", conf.Type)
 		return nil
 	}
 	cache, err := creator.Create(conf)
 	if err != nil {
-		logx.Error.Fatalln(err)
+		logx.NameSpace("cache").Fatalf("create err: %s", err)
 		return nil
 	}
 	return cache
